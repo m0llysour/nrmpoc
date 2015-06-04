@@ -71,9 +71,17 @@ angular.module( 'NewsRoomMananger_POC.clients', [
 .controller( 'ClientListCtrl', function ( $scope, Restangular ) {
   // TODO: Add a spinner while we load from the api
   $scope.clients = Restangular.all('client').getList().$object;
+  $scope.remove = function(id, index) {
+    Restangular.one('client', id).remove().then(function() {
+      $scope.clients.splice(index, 1);
+      console.log("Object deleted OK");
+    }, function() {
+      console.log("There was an error deleting");
+    });
+  };
 })
 
-.controller( 'ClientEditCtrl', function ( $scope, $stateParams, Restangular ) {
+.controller( 'ClientEditCtrl', function ( $scope, $state, $stateParams, Restangular ) {
   $scope.showSpinner = false;
   if ($stateParams.id) {
     $scope.showSpinner = true;
@@ -85,12 +93,15 @@ angular.module( 'NewsRoomMananger_POC.clients', [
 
   $scope.save = function(client) {
     if ($stateParams.id) {
-
+      d = $scope.client.save();
     } else {
-
+      d = Restangular.service('client').post($scope.client);
     }
+    d.then(function(obj) {
+      console.log("Object saved OK");
+      $state.go("clients.list");
+    }, function() {
+      console.log("There was an error saving");
+    });
   };
-})
-
-;
-
+});

@@ -10,7 +10,7 @@
       <td> {{ client.name }} </td>
       <td>
         <a class='btn btn-default' ui-sref='clients.edit({id: client.id})'>Edit</a>
-        <a class='btn btn-default' ng-click='delete({id: client.id})'>Delete</a>
+        <a class='btn btn-default' ng-click='remove(client.id, $index)'>Delete</a>
       </td>
     </tr>
   </tbody>

@@ -31,6 +31,10 @@ $app->before(function (Request $request) {
 });
 
 $app->match("{url}", function($url) use ($app) {
+	header('Access-Control-Allow-Origin: *');
+	header("Access-Control-Allow-Credentials: true");
+	header('Access-Control-Allow-Headers: X-Requested-With');
+	header('Access-Control-Allow-Headers: Content-Type');
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 	return "OK";
@@ -40,6 +44,11 @@ $app->get('/client', function () use ($app) {
 	$sql = "SELECT * FROM clients ORDER BY name";
 	$clients = $app['db']->fetchAll($sql);
 	if(!is_array($clients)) $clients = array();
+
+	header('Access-Control-Allow-Origin: *');
+	header("Access-Control-Allow-Credentials: true");
+	header('Access-Control-Allow-Headers: X-Requested-With');
+	header('Access-Control-Allow-Headers: Content-Type');
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 	return $app->json($clients, 200);
@@ -54,13 +63,31 @@ $app->get('/client/{id}', function ($id) use ($app) {
 	return $app->json($client, 200);
 });
 
-$app->put('/client',  function (Request $request) use ($app) {
-	$name = $request->getContent();
+$app->post('/client',  function (Request $request) use ($app) {
+	$name = json_decode($request->getContent())->name;
 	if($name) {
 		$sql = "INSERT INTO clients (name) VALUES ('".$name."')";
 		$app['db']->fetchAssoc($sql);
 	}
+	header('Access-Control-Allow-Origin: *');
+	header("Access-Control-Allow-Credentials: true");
+	header('Access-Control-Allow-Headers: X-Requested-With');
+	header('Access-Control-Allow-Headers: Content-Type');
+	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
+	header("Access-Control-Allow-Origin: *");
+	return $app->json(null, 200);
+});
 
+$app->put('/client/{id}',  function (Request $request, $id) use ($app) {
+	$name = json_decode($request->getContent())->name;
+	if($name) {
+		$sql = "UPDATE clients set name='".$name."' where id=$id";
+		$app['db']->fetchAssoc($sql);
+	}
+	header('Access-Control-Allow-Origin: *');
+	header("Access-Control-Allow-Credentials: true");
+	header('Access-Control-Allow-Headers: X-Requested-With');
+	header('Access-Control-Allow-Headers: Content-Type');
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 	return $app->json(null, 200);
