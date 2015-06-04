@@ -4,8 +4,8 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
-describe( 'list ', function() {
-  beforeEach( module( 'NewsRoomMananger_POC.list' ) );
+describe( 'clients ', function() {
+  beforeEach( module( 'NewsRoomMananger_POC.clients' ) );
 
   it( 'should have a dummy test', inject( function() {
     expect( true ).toBeTruthy();

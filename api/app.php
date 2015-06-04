@@ -17,8 +17,9 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
         'driver'   => 'pdo_pgsql',
         'dbname'   => 'postgres',
-        'user'     => 'postgres',
-        'password' => '',
+        'user'     => 'master',
+        'password' => 'mysecretpassword',
+        'host'     => 'db'
     ),
 ));
 
@@ -29,18 +30,16 @@ $app->before(function (Request $request) {
     }
 });
 
-$app->match("{url}", function($url) use ($app) { 
+$app->match("{url}", function($url) use ($app) {
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
-	return "OK"; 
+	return "OK";
 })->assert('url', '.*')->method("OPTIONS");
 
 $app->get('/client', function () use ($app) {
 	$sql = "SELECT * FROM clients ORDER BY name";
 	$clients = $app['db']->fetchAll($sql);
-	
 	if(!is_array($clients)) $clients = array();
-	
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
 	return $app->json($clients, 200);

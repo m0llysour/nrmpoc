@@ -1,0 +1,18 @@
+<table class='table'>
+  <thead>
+    <th>Id</th>
+    <th>Name</th>
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat='client in clients'>
+      <td> {{ client.id }} </td>
+      <td> {{ client.name }} </td>
+      <td>
+        <a class='btn btn-default' ui-sref='clients.edit({id: client.id})'>Edit</a>
+        <a class='btn btn-default' ng-click='delete({id: client.id})'>Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<a class='btn btn-default' ui-sref='clients.new'>Add new</a>
