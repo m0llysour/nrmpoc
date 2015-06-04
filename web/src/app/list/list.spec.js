@@ -4,11 +4,14 @@
  * build process will exclude all `.spec.js` files from the build
  * automatically.
  */
-describe( 'home section', function() {
-  beforeEach( module( 'ngBoilerplate.home' ) );
+describe( 'list ', function() {
+  beforeEach( module( 'NewsRoomMananger_POC.list' ) );
 
   it( 'should have a dummy test', inject( function() {
     expect( true ).toBeTruthy();
   }));
+  it('Should return a $scope something', function() {
+     expect( true ).toBeTruthy();
+  });
 });
 
