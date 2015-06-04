@@ -1,6 +1,7 @@
 {
     "require": {
         "silex/silex": "~1.2",
-        "doctrine/dbal": "~2.2"
+        "doctrine/dbal": "~2.2",
+        "phpunit/phpunit": "4.6.*"
     }
 }
