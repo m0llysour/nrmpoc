@@ -39,8 +39,7 @@ $app->get('/client', function () use ($app) {
 	$sql = "SELECT * FROM clients ORDER BY name";
 	$clients = $app['db']->fetchAll($sql);
 	
-	if(!$clients) $clients = array();
-	if(!isset($clients[0])) $clients = array($clients);
+	if(!is_array($clients)) $clients = array();
 	
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");
