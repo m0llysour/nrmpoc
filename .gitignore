@@ -1,3 +1,4 @@
+composer.phar
 api/composer.lock
 api/vendor
 .DS_Store

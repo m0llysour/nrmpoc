@@ -5,7 +5,7 @@
         "title": "News Room Manager - POC",
         "description": "News Room Manager stats tracker API, Proof Of Concept"
     },
-    "host": "127.0.0.1:1337",
+    "host": "127.0.0.1:1336",
     "basePath": "/",
     "schemes": [
         "http"
