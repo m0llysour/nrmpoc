@@ -15,10 +15,10 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 $app->register(new Silex\Provider\DoctrineServiceProvider(), array(
     'db.options' => array(
-        'driver'   => 'pdo_pgsql',
-        'dbname'   => 'postgres',
-        'user'     => 'master',
-        'password' => 'mysecretpassword',
+        'driver'   => 'pdo_mysql',
+        'dbname'   => 'nrm_poc',
+        'user'     => 'root',
+        'password' => '',
         'host'     => 'db'
     ),
 ));
@@ -67,7 +67,7 @@ $app->post('/client',  function (Request $request) use ($app) {
 	$name = json_decode($request->getContent())->name;
 	if($name) {
 		$sql = "INSERT INTO clients (name) VALUES ('".$name."')";
-		$app['db']->fetchAssoc($sql);
+		$app['db']->executeQuery($sql);
 	}
 	header('Access-Control-Allow-Origin: *');
 	header("Access-Control-Allow-Credentials: true");
@@ -82,7 +82,7 @@ $app->put('/client/{id}',  function (Request $request, $id) use ($app) {
 	$name = json_decode($request->getContent())->name;
 	if($name) {
 		$sql = "UPDATE clients set name='".$name."' where id=$id";
-		$app['db']->fetchAssoc($sql);
+		$app['db']->executeQuery($sql);
 	}
 	header('Access-Control-Allow-Origin: *');
 	header("Access-Control-Allow-Credentials: true");
@@ -95,7 +95,7 @@ $app->put('/client/{id}',  function (Request $request, $id) use ($app) {
 
 $app->delete('/client/{id}', function ($id) use ($app) {
 	$sql = "DELETE FROM clients WHERE id = ?";
-	$app['db']->fetchAssoc($sql, array((int) $id));
+	$app['db']->executeQuery($sql, array((int) $id));
 
 	header("Access-Control-Allow-Methods: GET, POST, DELETE, PUT, PATCH, OPTIONS");
 	header("Access-Control-Allow-Origin: *");

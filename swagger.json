@@ -42,7 +42,7 @@
                     }
                 }
             },
-            "put": {
+            "post": {
                 "description": "Creates a new client",
                 "operationId": "addClient",
                 "produces": [
@@ -51,7 +51,7 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "body",
+                        "in": "json",
                         "description": "Name of the client to add",
                         "required": true,
                         "schema": {
@@ -131,6 +131,46 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "description": "Updates a client",
+                "operationId": "updateClient",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client to update",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "name": "name",
+                        "in": "body",
+                        "description": "Name of the client to update",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/updateClient"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "client response",
+                        "schema": {
+                            "$ref": "#/definitions/client"
+                        }
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
             }
         }
     },
@@ -150,8 +190,9 @@
                 }
             }
         },
-        "newClient": {
+        "updateClient": {
             "required": [
+                "id",
                 "name"
             ],
             "properties": {
@@ -159,6 +200,16 @@
                     "type": "integer",
                     "format": "int64"
                 },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "newClient": {
+            "required": [
+                "name"
+            ],
+            "properties": {
                 "name": {
                     "type": "string"
                 }
