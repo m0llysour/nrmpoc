@@ -8,10 +8,11 @@ class appControllerTest extends \PHPUnit_Framework_TestCase {
 
 	public function testClientEndpoint() {
 		$testName = 'PHPUnittest';
+		$testNameChange = 'PHPUnittestUpdated';
 		$client = new Client('http://127.0.0.1:80');
 
 		// client add
-	 	$request = $client->put('/client', null, $testName);
+	 	$request = $client->post('/client', null, json_encode(array('name' => $testName)));
 	 	$response = $request->send();
 		$this->assertEquals(200, $response->getStatusCode());
 
@@ -42,6 +43,20 @@ class appControllerTest extends \PHPUnit_Framework_TestCase {
 	    $data = $response->json();
 	    $this->assertInternalType('array', $data);
 	    $this->assertEquals($testName, $data['name']);
+
+	    // client update
+	    $request = $client->put('/client/'.$clientId, null, json_encode(array('name' => $testNameChange)));
+	 	$response = $request->send();
+		$this->assertEquals(200, $response->getStatusCode());
+
+		// client get updated value
+	    $request = $client->get('/client/'.$clientId);
+	    $response = $request->send();
+	    $this->assertEquals(200, $response->getStatusCode());
+	    
+	    $data = $response->json();
+	    $this->assertInternalType('array', $data);
+	    $this->assertEquals($testNameChange, $data['name']);
 
 	    // client delete
 	    $request = $client->delete('/client/'.$clientId, null);

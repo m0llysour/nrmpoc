@@ -1,4 +1,4 @@
 composer.phar
-api/composer.lock
-api/vendor
+composer.lock
+vendor
 .DS_Store
