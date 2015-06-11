@@ -34,7 +34,10 @@ set :log_level, :debug
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :composer_working_dir, -> { File.join(fetch(:release_path), 'api-symfony/nrm_poc') }
+# app specific variables
+#set :composer_working_dir, -> { File.join(fetch(:release_path), 'api-symfony/nrm_poc') }
+#set :app_path, "api-symfony/nrm_poc/app"
+set :deploy_subdir, "api-symfony/nrm_poc"
 
 namespace :deploy do
 
