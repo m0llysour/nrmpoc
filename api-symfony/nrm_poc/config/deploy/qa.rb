@@ -1,1 +1,0 @@
-server '52.26.156.60', roles: [:web], user: 'deploy', port: 22
