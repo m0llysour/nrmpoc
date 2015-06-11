@@ -36,8 +36,7 @@ set :log_level, :debug
 
 # app specific variables
 #set :composer_working_dir, -> { File.join(fetch(:release_path), 'api-symfony/nrm_poc') }
-#set :app_path, "api-symfony/nrm_poc/app"
-set :deploy_subdir, "api-symfony/nrm_poc"
+set :app_path, "api-symfony/nrm_poc/app"
 
 namespace :deploy do
 
